@@ -169,11 +169,11 @@ def runstrategy():
     cerebro.addanalyzer(TradeAnalyzer)
 
     cerebro.addwriter(bt.WriterFile, csv=args.writercsv, rounding=4)
-
     # And run it
     cerebro.run()
 
     # Plot if requested
+    args.plot = True
     if args.plot:
         cerebro.plot(numfigs=args.numfigs, volume=False, zdown=False)
 
