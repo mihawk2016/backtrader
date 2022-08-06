@@ -93,8 +93,8 @@ class Stochastic(_StochasticBase):
       - percD becomes a  moving average of period_dslow of the original percD
 
     Formula:
-      - k = k
-      - d = d
+      - k =
+       d = d
       - d = MovingAverage(d, period_dslow)
 
     See:
