@@ -53,7 +53,7 @@ class OptReturn(object):
 
 
 class Cerebro(with_metaclass(MetaParams, object)):
-    '''Params:
+    """Params:
 
       - ``preload`` (default: ``True``)
 
@@ -264,7 +264,7 @@ class Cerebro(with_metaclass(MetaParams, object)):
 
         Set to ``False`` for compatibility. May be changed to ``True``
 
-    '''
+    """
 
     params = (
         ('preload', True),

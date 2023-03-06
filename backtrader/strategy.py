@@ -24,12 +24,8 @@ from __future__ import (absolute_import, division, print_function,
 import collections
 import copy
 import datetime
-import inspect
 import itertools
 import operator
-
-from .utils.py3 import (filter, keys, integer_types, iteritems, itervalues,
-                        map, MAXINT, string_types, with_metaclass)
 
 import backtrader as bt
 from .lineiterator import LineIterator, StrategyBase
@@ -37,7 +33,8 @@ from .lineroot import LineSingle
 from .lineseries import LineSeriesStub
 from .metabase import ItemCollection, findowner
 from .trade import Trade
-from .utils import OrderedDict, AutoOrderedDict, AutoDictList
+from .utils import AutoOrderedDict, AutoDictList
+from .utils.py3 import (filter, keys, integer_types, iteritems, map, MAXINT, string_types, with_metaclass)
 
 
 class MetaStrategy(StrategyBase.__class__):
@@ -62,7 +59,7 @@ class MetaStrategy(StrategyBase.__class__):
         super(MetaStrategy, cls).__init__(name, bases, dct)
 
         if not cls.aliased and \
-           name != 'Strategy' and not name.startswith('_'):
+                name != 'Strategy' and not name.startswith('_'):
             cls._indcol[name] = cls
 
     def donew(cls, *args, **kwargs):
@@ -118,7 +115,8 @@ class Strategy(with_metaclass(MetaStrategy, StrategyBase)):
     lines = ('datetime',)
 
     def qbuffer(self, savemem=0, replaying=False):
-        '''Enable the memory saving schemes. Possible values for ``savemem``:
+        """
+        Enable the memory saving schemes. Possible values for ``savemem``:
 
           0: No savings. Each lines object keeps in memory all values
 
@@ -131,7 +129,13 @@ class Strategy(with_metaclass(MetaStrategy, StrategyBase)):
 
           -2: Same as -1 plus activation of memory saving for any indicators
               which has declared *plotinfo.plot* as False (will not be plotted)
-        '''
+
+        启用内存节省方案。“savemem”的可能值：
+        0：无储蓄。每个行对象将所有值保留在内存中
+        1：所有行对象都使用所需的严格最小值来节省内存 负值用于需要绘图时：
+            -1：策略级别和观察者的指标不允许节省内存（但在其以下声明的任何内容都可以）
+            -2：与 -1 相同，加上激活任何已将 plotinfo.plot 声明为 False 的指标的内存节省（不会被绘制）
+        """
         if savemem < 0:
             # Get any attribute which labels itself as Indicator
             for ind in self._lineiterators[self.IndType]:
