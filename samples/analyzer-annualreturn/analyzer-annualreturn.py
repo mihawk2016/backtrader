@@ -42,7 +42,7 @@ class LongShortStrategy(bt.Strategy):
         period=15,
         stake=1,
         printout=True,
-        onlylong=False,
+        onlylong=True,
         csvcross=False,
     )
 
@@ -137,6 +137,7 @@ def runstrategy():
     cerebro.adddata(data)
 
     # Add the strategy
+    args.onlylong = True
     cerebro.addstrategy(LongShortStrategy,
                         period=args.period,
                         onlylong=args.onlylong,
