@@ -137,7 +137,7 @@ def runstrategy():
     cerebro.adddata(data)
 
     # Add the strategy
-    args.onlylong = True
+    # args.onlylong = True
     cerebro.addstrategy(LongShortStrategy,
                         period=args.period,
                         onlylong=args.onlylong,
