@@ -223,8 +223,8 @@ class AutoDateLocator(ADLocator):
 
         locator.set_axis(self.axis)
 
-        locator.set_view_interval(*self.axis.get_view_interval())
-        locator.set_data_interval(*self.axis.get_data_interval())
+        # locator.set_view_interval(*self.axis.get_view_interval()) 注释消除报错
+        # locator.set_data_interval(*self.axis.get_data_interval()) 注释消除报错
         return locator
 
 
