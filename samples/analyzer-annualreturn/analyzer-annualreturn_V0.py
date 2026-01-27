@@ -119,8 +119,6 @@ class LongShortStrategy(bt.Strategy):
 
 def runstrategy():
     args = parse_args()
-    args.plot = True
-    print(args)
 
     # Create a cerebro
     cerebro = bt.Cerebro()
