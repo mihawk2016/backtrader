@@ -25,12 +25,14 @@ from __future__ import (absolute_import, division, print_function,
 import collections
 
 import backtrader as bt
-from backtrader.utils.py3 import items, iteritems
+from ..utils.py3 import items, iteritems
 
 from . import TimeReturn, PositionsValue, Transactions, GrossLeverage
 
+from ..analyzer import Analyzer
+from ..dataseries import TimeFrame
 
-class PyFolio(bt.Analyzer):
+class PyFolio(Analyzer):
     '''This analyzer uses 4 children analyzers to collect data and transforms it
     in to a data set compatible with ``pyfolio``
 
@@ -79,7 +81,7 @@ class PyFolio(bt.Analyzer):
         each return as keys
     '''
     params = (
-        ('timeframe', bt.TimeFrame.Days),
+        ('timeframe', TimeFrame.Days),
         ('compression', 1)
     )
 

@@ -26,13 +26,13 @@ from datetime import date, datetime, timedelta
 import threading
 
 from backtrader import BrokerBase, Order, BuyOrder, SellOrder
-from backtrader.comminfo import CommInfoBase
-from backtrader.feed import DataBase
-from backtrader.metabase import MetaParams
-from backtrader.position import Position
-from backtrader.utils.py3 import with_metaclass
+from ..comminfo import CommInfoBase
+from ..feed import DataBase
+from ..metabase import MetaParams
+from ..position import Position
+from ..utils.py3 import with_metaclass
 
-from backtrader.stores import vcstore
+from ..stores import vcstore
 
 
 class VCCommInfo(CommInfoBase):

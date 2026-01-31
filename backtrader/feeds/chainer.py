@@ -25,10 +25,12 @@ from __future__ import (absolute_import, division, print_function,
 from datetime import datetime
 
 import backtrader as bt
-from backtrader.utils.py3 import range
+from ..utils.py3 import range, with_metaclass
+from ..feed import DataBase
 
 
-class MetaChainer(bt.DataBase.__class__):
+
+class MetaChainer(DataBase.__class__):
     def __init__(cls, name, bases, dct):
         '''Class has already been created ... register'''
         # Initialize the class
@@ -46,7 +48,7 @@ class MetaChainer(bt.DataBase.__class__):
         return _obj, args, kwargs
 
 
-class Chainer(bt.with_metaclass(MetaChainer, bt.DataBase)):
+class Chainer(with_metaclass(MetaChainer, DataBase)):
     '''Class that chains datas'''
 
     def islive(self):

@@ -23,7 +23,7 @@ from __future__ import (absolute_import, division, print_function,
 
 
 import backtrader as bt
-from backtrader.utils.py3 import MAXINT
+from ..utils.py3 import MAXINT
 
 
 from . import MovingAverageBase, MovAv

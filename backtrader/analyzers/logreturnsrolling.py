@@ -26,11 +26,12 @@ import math
 
 import backtrader as bt
 
+from ..analyzers import TimeFrameAnalyzerBase
 
 __all__ = ['LogReturnsRolling']
 
 
-class LogReturnsRolling(bt.TimeFrameAnalyzerBase):
+class LogReturnsRolling(TimeFrameAnalyzerBase):
     '''This analyzer calculates rolling returns for a given timeframe and
     compression
 

@@ -32,9 +32,10 @@ from ..utils.py3 import (urlopen, urlquote, ProxyHandler, build_opener,
 import backtrader as bt
 from .. import feed
 from ..utils import date2num
+from ..feed import CSVDataBase, CSVFeedBase
 
 
-class YahooFinanceCSVData(feed.CSVDataBase):
+class YahooFinanceCSVData(CSVDataBase):
     '''
     Parses pre-downloaded Yahoo CSV Data Feeds (or locally generated if they
     comply to the Yahoo format)
@@ -189,7 +190,7 @@ class YahooLegacyCSV(YahooFinanceCSVData):
     )
 
 
-class YahooFinanceCSV(feed.CSVFeedBase):
+class YahooFinanceCSV(CSVFeedBase):
     DataCls = YahooFinanceCSVData
 
 

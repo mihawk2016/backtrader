@@ -23,9 +23,9 @@ from __future__ import (absolute_import, division, print_function,
 
 
 import backtrader as bt
+from ..analyzer import Analyzer
 
-
-class PositionsValue(bt.Analyzer):
+class PositionsValue(Analyzer):
     '''This analyzer reports the value of the positions of the current set of
     datas
 

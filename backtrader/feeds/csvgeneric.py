@@ -27,9 +27,10 @@ import itertools
 from .. import feed, TimeFrame
 from ..utils import date2num
 from ..utils.py3 import integer_types, string_types
+from ..feed import CSVDataBase, CSVFeedBase
 
 
-class GenericCSVData(feed.CSVDataBase):
+class GenericCSVData(CSVDataBase):
     '''Parses a CSV file according to the order and field presence defined by the
     parameters
 
@@ -158,5 +159,5 @@ class GenericCSVData(feed.CSVDataBase):
         return True
 
 
-class GenericCSV(feed.CSVFeedBase):
+class GenericCSV(CSVFeedBase):
     DataCls = GenericCSVData

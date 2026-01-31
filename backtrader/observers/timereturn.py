@@ -25,9 +25,11 @@ import calendar
 import datetime
 
 import backtrader as bt
-from .. import Observer, TimeFrame
 
-from backtrader.utils.py3 import MAXINT
+from ..observer import Observer
+from ..dataseries import TimeFrame
+
+from ..utils.py3 import MAXINT
 
 
 class TimeReturn(Observer):

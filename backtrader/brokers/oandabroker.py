@@ -29,13 +29,13 @@ import threading
 from backtrader.feed import DataBase
 from backtrader import (TimeFrame, num2date, date2num, BrokerBase,
                         Order, BuyOrder, SellOrder, OrderBase, OrderData)
-from backtrader.utils.py3 import bytes, with_metaclass, MAXFLOAT
-from backtrader.metabase import MetaParams
-from backtrader.comminfo import CommInfoBase
-from backtrader.position import Position
-from backtrader.stores import oandastore
-from backtrader.utils import AutoDict, AutoOrderedDict
-from backtrader.comminfo import CommInfoBase
+from ..utils.py3 import bytes, with_metaclass, MAXFLOAT
+from ..metabase import MetaParams
+from ..comminfo import CommInfoBase
+from ..position import Position
+from ..stores import oandastore
+from ..utils import AutoDict, AutoOrderedDict
+from ..comminfo import CommInfoBase
 
 
 class OandaCommInfo(CommInfoBase):

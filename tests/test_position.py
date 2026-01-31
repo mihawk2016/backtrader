@@ -21,17 +21,15 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
-import testcommon
+from . import testcommon
 
-import backtrader as bt
-from backtrader import position
-
+from ..backtrader.position import Position
 
 def test_run(main=False):
     size = 10
     price = 10.0
 
-    pos = position.Position(size=size, price=price)
+    pos = Position(size=size, price=price)
     assert pos.size == size
     assert pos.price == price
 

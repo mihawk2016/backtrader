@@ -23,9 +23,9 @@ from __future__ import (absolute_import, division, print_function,
 
 import math
 
-from backtrader import Analyzer
-from backtrader.mathsupport import average, standarddev
-from backtrader.utils import AutoOrderedDict
+from ..analyzer import Analyzer
+from ..mathsupport import average, standarddev
+from ..utils import AutoOrderedDict
 
 
 class SQN(Analyzer):
@@ -64,6 +64,7 @@ class SQN(Analyzer):
         super(SQN, self).start()
         self.pnl = list()
         self.count = 0
+        
 
     def notify_trade(self, trade):
         if trade.status == trade.Closed:

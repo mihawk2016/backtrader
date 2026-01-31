@@ -25,10 +25,11 @@ from __future__ import (absolute_import, division, print_function,
 import collections
 
 import backtrader as bt
-from backtrader import Order, Position
+from ..order import Order
+from ..position import Position
+from ..analyzer import Analyzer
 
-
-class Transactions(bt.Analyzer):
+class Transactions(Analyzer):
     '''This analyzer reports the transactions occurred with each an every data in
     the system
 

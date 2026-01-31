@@ -26,20 +26,22 @@ from struct import unpack
 import os.path
 
 import backtrader as bt
-from backtrader import date2num  # avoid dict lookups
+from ..utils.dateintern import date2num
+from ..feed import DataBase
+from ..utils.py3 import with_metaclass
+from ..stores import VChartFile
 
-
-class MetaVChartFile(bt.DataBase.__class__):
+class MetaVChartFile(DataBase.__class__):
     def __init__(cls, name, bases, dct):
         '''Class has already been created ... register'''
         # Initialize the class
         super(MetaVChartFile, cls).__init__(name, bases, dct)
 
         # Register with the store
-        bt.stores.VChartFile.DataCls = cls
+        VChartFile.DataCls = cls
 
 
-class VChartFile(bt.with_metaclass(MetaVChartFile, bt.DataBase)):
+class VChartFile(with_metaclass(MetaVChartFile, DataBase)):
     '''
     Support for `Visual Chart <www.visualchart.com>`_ binary on-disk files for
     both daily and intradaily formats.

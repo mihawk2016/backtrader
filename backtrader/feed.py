@@ -28,17 +28,16 @@ import io
 import os.path
 
 import backtrader as bt
-from backtrader import (date2num, num2date, time2num, TimeFrame, dataseries,
-                        metabase)
+from .utils import date2num, num2date, time2num, tzparse, date
+from .dataseries import TimeFrame, DataSeries, OHLCDateTime, SimpleFilterWrapper
+from .metabase import MetaParams, findowner
 
-from backtrader.utils.py3 import with_metaclass, zip, range, string_types
-from backtrader.utils import tzparse
-from .dataseries import SimpleFilterWrapper
+from .utils.py3 import with_metaclass, zip, range, string_types
 from .resamplerfilter import Resampler, Replayer
 from .tradingcal import PandasMarketCalendar
 
 
-class MetaAbstractDataBase(dataseries.OHLCDateTime.__class__):
+class MetaAbstractDataBase(OHLCDateTime.__class__):
     _indcol = dict()
 
     def __init__(cls, name, bases, dct):
@@ -57,7 +56,7 @@ class MetaAbstractDataBase(dataseries.OHLCDateTime.__class__):
             super(MetaAbstractDataBase, cls).dopreinit(_obj, *args, **kwargs)
 
         # Find the owner and store it
-        _obj._feed = metabase.findowner(_obj, FeedBase)
+        _obj._feed = findowner(_obj, FeedBase)
 
         _obj.notifs = collections.deque()  # store notifications for cerebro
 
@@ -119,8 +118,7 @@ class MetaAbstractDataBase(dataseries.OHLCDateTime.__class__):
         return _obj, args, kwargs
 
 
-class AbstractDataBase(with_metaclass(MetaAbstractDataBase,
-                                      dataseries.OHLCDateTime)):
+class AbstractDataBase(with_metaclass(MetaAbstractDataBase, OHLCDateTime)):
 
     params = (
         ('dataname', None),
@@ -174,7 +172,7 @@ class AbstractDataBase(with_metaclass(MetaAbstractDataBase,
         self.lines.datetime._settz(self._tz)
 
         # This should probably be also called from an override-able method
-        self._tzinput = bt.utils.date.Localizer(self._gettzinput())
+        self._tzinput = date.Localizer(self._gettzinput())
 
         # Convert user input times to the output timezone (or min/max)
         if self.p.fromdate is None:
@@ -600,7 +598,7 @@ class DataBase(AbstractDataBase):
     pass
 
 
-class FeedBase(with_metaclass(metabase.MetaParams, object)):
+class FeedBase(with_metaclass(MetaParams, object)):
     params = () + DataBase.params._gettuple()
 
     def __init__(self):

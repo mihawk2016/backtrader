@@ -24,11 +24,14 @@ from __future__ import (absolute_import, division, print_function,
 import backtrader as bt
 from . import TimeDrawDown
 
+from ..analyzers import TimeFrameAnalyzerBase
+from ..dataseries import TimeFrame
+
 
 __all__ = ['Calmar']
 
 
-class Calmar(bt.TimeFrameAnalyzerBase):
+class Calmar(TimeFrameAnalyzerBase):
     '''This analyzer calculates the CalmarRatio
     timeframe which can be different from the one used in the underlying data
     Params:
@@ -75,7 +78,7 @@ class Calmar(bt.TimeFrameAnalyzerBase):
     packages = ('collections', 'math',)
 
     params = (
-        ('timeframe', bt.TimeFrame.Months),  # default in calmar
+        ('timeframe', TimeFrame.Months),  # default in calmar
         ('period', 36),
         ('fund', None),
     )

@@ -22,23 +22,25 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import backtrader as bt
-import backtrader.feed as feed
 from ..utils import date2num
 import datetime as dt
 
+from ..dataseries import TimeFrame
+from ..feed import DataBase
+
 TIMEFRAMES = dict(
     (
-        (bt.TimeFrame.Seconds, 's'),
-        (bt.TimeFrame.Minutes, 'm'),
-        (bt.TimeFrame.Days, 'd'),
-        (bt.TimeFrame.Weeks, 'w'),
-        (bt.TimeFrame.Months, 'm'),
-        (bt.TimeFrame.Years, 'y'),
+        (TimeFrame.Seconds, 's'),
+        (TimeFrame.Minutes, 'm'),
+        (TimeFrame.Days, 'd'),
+        (TimeFrame.Weeks, 'w'),
+        (TimeFrame.Months, 'm'),
+        (TimeFrame.Years, 'y'),
     )
 )
 
 
-class InfluxDB(feed.DataBase):
+class InfluxDB(DataBase):
     frompackages = (
         ('influxdb', [('InfluxDBClient', 'idbclient')]),
         ('influxdb.exceptions', 'InfluxDBClientError')
@@ -50,7 +52,7 @@ class InfluxDB(feed.DataBase):
         ('username', None),
         ('password', None),
         ('database', None),
-        ('timeframe', bt.TimeFrame.Days),
+        ('timeframe', TimeFrame.Days),
         ('startdate', None),
         ('high', 'high_p'),
         ('low', 'low_p'),

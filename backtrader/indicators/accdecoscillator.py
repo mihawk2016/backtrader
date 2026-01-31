@@ -23,12 +23,12 @@ from __future__ import (absolute_import, division, print_function,
 
 import backtrader as bt
 from . import MovAv, AwesomeOscillator
-
+from ..indicator import Indicator
 
 __all__ = ['AccelerationDecelerationOscillator', 'AccDeOsc']
 
 
-class AccelerationDecelerationOscillator(bt.Indicator):
+class AccelerationDecelerationOscillator(Indicator):
     '''
     Acceleration/Deceleration Technical Indicator (AC) measures acceleration
     and deceleration of the current driving force. This indicator will change

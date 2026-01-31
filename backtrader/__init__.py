@@ -18,8 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###############################################################################
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import (absolute_import, division, print_function, unicode_literals)
+# from .cerebro import Cerebro
 
 from .version import __version__, __btversion__
 
@@ -86,5 +86,8 @@ from . import timer as timer
 from . import talib as talib
 
 # Load contributed indicators and studies
-import backtrader.indicators.contrib
-import backtrader.studies.contrib
+from .indicators import contrib
+from .studies import contrib
+
+# import backtrader.indicators.contrib
+# import backtrader.studies.contrib

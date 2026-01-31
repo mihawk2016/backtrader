@@ -22,13 +22,14 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import backtrader as bt
-from backtrader.utils import AutoOrderedDict
+from ..analyzer import Analyzer, TimeFrameAnalyzerBase
+from ..utils import AutoOrderedDict
 
 
 __all__ = ['DrawDown', 'TimeDrawDown']
 
 
-class DrawDown(bt.Analyzer):
+class DrawDown(Analyzer):
     '''This analyzer calculates trading system drawdowns stats such as drawdown
     values in %s and in dollars, max drawdown in %s and in dollars, drawdown
     length and drawdown max length
@@ -110,7 +111,7 @@ class DrawDown(bt.Analyzer):
         r.max.len = max(r.max.len, r.len)
 
 
-class TimeDrawDown(bt.TimeFrameAnalyzerBase):
+class TimeDrawDown(TimeFrameAnalyzerBase):
     '''This analyzer calculates trading system drawdowns on the chosen
     timeframe which can be different from the one used in the underlying data
     Params:

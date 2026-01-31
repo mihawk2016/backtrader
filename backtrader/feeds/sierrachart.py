@@ -23,6 +23,7 @@ from __future__ import (absolute_import, division, print_function,
 
 
 from . import GenericCSVData
+from ..feeds.csvgeneric import GenericCSVData
 
 
 class SierraChartCSVData(GenericCSVData):

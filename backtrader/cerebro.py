@@ -46,6 +46,7 @@ from .strategy import Strategy, SignalStrategy
 from .tradingcal import (TradingCalendarBase, TradingCalendar,
                          PandasMarketCalendar)
 from .timer import Timer
+from ..backtrader import errors
 
 # Defined here to make it pickable. Ideally it could be defined inside Cerebro
 
@@ -1220,7 +1221,7 @@ class Cerebro(with_metaclass(MetaParams, object)):
             sargs = self.datas + list(sargs)
             try:
                 strat = stratcls(*sargs, **skwargs)
-            except bt.errors.StrategySkipError:
+            except errors.StrategySkipError:
                 continue  # do not add strategy to the mix
 
             if self.p.oldsync:

@@ -23,10 +23,11 @@ from __future__ import (absolute_import, division, print_function,
 
 
 import backtrader as bt
-import backtrader.indicators as btind
 
+from ..indicators import MovAv
+from ..strategy import Strategy
 
-class MA_CrossOver(bt.Strategy):
+class MA_CrossOver(Strategy):
     '''This is a long-only strategy which operates on a moving average cross
 
     Note:
@@ -56,7 +57,7 @@ class MA_CrossOver(bt.Strategy):
         # period for the slow moving average
         ('slow', 30),
         # moving average to use
-        ('_movav', btind.MovAv.SMA)
+        ('_movav', MovAv.SMA)
     )
 
     def __init__(self):

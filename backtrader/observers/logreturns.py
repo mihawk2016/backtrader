@@ -23,12 +23,14 @@ from __future__ import (absolute_import, division, print_function,
 
 
 import backtrader as bt
-
+from ..observer import Observer
+from ..dataseries import TimeFrame
+from ..analyzers.logreturnsrolling import LogReturnsRolling
 
 __all__ = ['LogReturns', 'LogReturns2']
 
 
-class LogReturns(bt.Observer):
+class LogReturns(Observer):
     '''This observer stores the *log returns* of the strategy or a
 
     Params:
@@ -70,12 +72,12 @@ class LogReturns(bt.Observer):
     )
 
     def _plotlabel(self):
-        return [bt.TimeFrame.getname(self.p.timeframe, self.p.compression),
+        return [TimeFrame.getname(self.p.timeframe, self.p.compression),
                 str(self.p.compression or 1)]
 
     def __init__(self):
         self.logret1 = self._owner._addanalyzer_slave(
-            bt.analyzers.LogReturnsRolling,
+            LogReturnsRolling,
             data=self.data0, **self.p._getkwargs())
 
     def next(self):
@@ -90,7 +92,7 @@ class LogReturns2(LogReturns):
         super(LogReturns2, self).__init__()
 
         self.logret2 = self._owner._addanalyzer_slave(
-            bt.analyzers.LogReturnsRolling,
+            LogReturnsRolling,
             data=self.data1, **self.p._getkwargs())
 
     def next(self):

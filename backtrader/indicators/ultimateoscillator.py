@@ -23,10 +23,11 @@ from __future__ import (absolute_import, division, print_function,
 
 
 import backtrader as bt
-from backtrader.indicators import SumN, TrueLow, TrueRange
+from ..indicators  import SumN, TrueLow, TrueRange
 
+from ..indicator import Indicator
 
-class UltimateOscillator(bt.Indicator):
+class UltimateOscillator(Indicator):
     '''
     Formula:
       # Buying Pressure = Close - TrueLow

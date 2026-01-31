@@ -24,8 +24,9 @@ from __future__ import (absolute_import, division, print_function,
 import backtrader as bt
 from . import SMA, ROC100
 
+from ..indicator import Indicator
 
-class KnowSureThing(bt.Indicator):
+class KnowSureThing(Indicator):
     '''
     It is a "summed" momentum indicator. Developed by Martin Pring and
     published in 1992 in Stocks & Commodities.

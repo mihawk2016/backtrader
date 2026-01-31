@@ -25,9 +25,10 @@ from datetime import date, datetime, time
 
 from .. import feed
 from ..utils import date2num
+from ..feed import CSVDataBase, CSVFeedBase
 
 
-class BacktraderCSVData(feed.CSVDataBase):
+class BacktraderCSVData(CSVDataBase):
     '''
     Parses a self-defined CSV Data used for testing.
 
@@ -59,5 +60,5 @@ class BacktraderCSVData(feed.CSVDataBase):
         return True
 
 
-class BacktraderCSV(feed.CSVFeedBase):
+class BacktraderCSV(CSVFeedBase):
     DataCls = BacktraderCSVData

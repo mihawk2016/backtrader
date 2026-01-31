@@ -24,12 +24,12 @@ from __future__ import (absolute_import, division, print_function,
 import datetime
 
 import backtrader as bt
-from backtrader.feed import DataBase
-from backtrader import TimeFrame, date2num, num2date
-from backtrader.utils.py3 import (integer_types, queue, string_types,
+from ..feed import DataBase
+from ..dataseries import TimeFrame, date2num, num2date
+from ..utils.py3 import (integer_types, queue, string_types,
                                   with_metaclass)
-from backtrader.metabase import MetaParams
-from backtrader.stores import ibstore
+from ..metabase import MetaParams
+from ..stores import ibstore
 
 
 class MetaIBData(DataBase.__class__):

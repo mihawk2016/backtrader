@@ -29,9 +29,20 @@ import sys
 # append module root directory to sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# from ..backtrader.utils import flushfile
+
 import backtrader as bt
-import backtrader.utils.flushfile
-from backtrader.metabase import ParamsBase
+# import backtrader.utils.flushfile
+# from backtrader.metabase import ParamsBase
+
+from ..backtrader.feeds.btcsv import BacktraderCSVData
+from ..backtrader.cerebro import Cerebro
+from ..backtrader.strategy import Strategy
+from ..backtrader.utils import flushfile
+from ..backtrader.metabase import ParamsBase
+from ..backtrader.lineseries import LineSeries
+
+
 
 
 modpath = os.path.dirname(os.path.abspath(__file__))
@@ -41,7 +52,7 @@ datafiles = [
     '2006-week-001.txt',
 ]
 
-DATAFEED = bt.feeds.BacktraderCSVData
+DATAFEED = BacktraderCSVData
 
 FROMDATE = datetime.datetime(2006, 1, 1)
 TODATE = datetime.datetime(2006, 12, 31)
@@ -78,7 +89,7 @@ def runtest(datas,
     for prload in preloads:
         for ronce in runonces:
             for exbar in exbars:
-                cerebro = bt.Cerebro(runonce=ronce,
+                cerebro = Cerebro(runonce=ronce,
                                      preload=prload,
                                      maxcpus=maxcpus,
                                      exactbars=exbar)
@@ -87,7 +98,7 @@ def runtest(datas,
                     print('prload {} / ronce {} exbar {}'.format(
                         prload, ronce, exbar))
 
-                if isinstance(datas, bt.LineSeries):
+                if isinstance(datas, LineSeries):
                     datas = [datas]
                 for data in datas:
                     cerebro.adddata(data)
@@ -117,7 +128,7 @@ def runtest(datas,
     return cerebros
 
 
-class TestStrategy(bt.Strategy):
+class TestStrategy(Strategy):
     params = dict(main=False,
                   chkind=[],
                   inddata=[],

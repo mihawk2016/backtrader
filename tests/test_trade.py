@@ -1,30 +1,6 @@
-#!/usr/bin/env python
-# -*- coding: utf-8; py-indent-offset:4 -*-
-###############################################################################
-#
-# Copyright (C) 2015-2023 Daniel Rodriguez
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
-
-import testcommon
-
-import backtrader as bt
-from backtrader import trade
+from ..backtrader.order import Order, BuyOrder
+from ..backtrader.trade import Trade
+from . import testcommon
 
 
 class FakeCommInfo(object):
@@ -53,11 +29,11 @@ class FakeData(object):
 
 
 def test_run(main=False):
-    tr = trade.Trade(data=FakeData())
+    tr = Trade(data=FakeData())
 
-    order = bt.BuyOrder(data=FakeData(),
+    order = BuyOrder(data=FakeData(),
                         size=0, price=1.0,
-                        exectype=bt.Order.Market,
+                        exectype=Order.Market,
                         simulated=True)
 
     commrate = 0.025

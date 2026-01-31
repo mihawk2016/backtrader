@@ -24,9 +24,10 @@ from __future__ import (absolute_import, division, print_function,
 
 import backtrader as bt
 from . import EMA
+from ..indicator import Indicator
 
 
-class TrueStrengthIndicator(bt.Indicator):
+class TrueStrengthIndicator(Indicator):
     '''
     The True Strength Indicators was first introduced in Stocks & Commodities
     Magazine by its author William Blau. It measures momentum with a double

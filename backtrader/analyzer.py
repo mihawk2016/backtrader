@@ -27,11 +27,15 @@ import datetime
 import pprint as pp
 
 import backtrader as bt
-from backtrader import TimeFrame
-from backtrader.utils.py3 import MAXINT, with_metaclass
+from .metabase import MetaParams, findowner
+
+from .dataseries import TimeFrame
+from .utils.py3 import MAXINT, with_metaclass
+from .strategy import Strategy
+from .observer import Observer
 
 
-class MetaAnalyzer(bt.MetaParams):
+class MetaAnalyzer(MetaParams):
     def donew(cls, *args, **kwargs):
         '''
         Intercept the strategy parameter
@@ -40,12 +44,11 @@ class MetaAnalyzer(bt.MetaParams):
         _obj, args, kwargs = super(MetaAnalyzer, cls).donew(*args, **kwargs)
 
         _obj._children = list()
-
-        _obj.strategy = strategy = bt.metabase.findowner(_obj, bt.Strategy)
-        _obj._parent = bt.metabase.findowner(_obj, Analyzer)
+        _obj.strategy = strategy = findowner(_obj, Strategy)
+        _obj._parent = findowner(_obj, Analyzer)
 
         # Register with a master observer if created inside one
-        masterobs = bt.metabase.findowner(_obj, bt.Observer)
+        masterobs = findowner(_obj, Observer)
         if masterobs is not None:
             masterobs._register_analyzer(_obj)
 

@@ -24,8 +24,9 @@ from __future__ import (absolute_import, division, print_function,
 import collections
 from datetime import datetime, timedelta
 
-from backtrader import AbstractDataBase, TimeFrame
+from ..dataseries import TimeFrame
 
+from ..feed import AbstractDataBase
 
 class DataFiller(AbstractDataBase):
     '''This class will fill gaps in the source data using the following

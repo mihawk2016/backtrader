@@ -24,9 +24,10 @@ from __future__ import (absolute_import, division, print_function,
 import os.path
 
 import backtrader as bt
+from ..store import Store
 
 
-class VChartFile(bt.Store):
+class VChartFile(Store):
     '''Store provider for Visual Chart binary files
 
     Params:

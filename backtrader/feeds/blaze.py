@@ -22,10 +22,10 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 from backtrader import date2num
-import backtrader.feed as feed
+from ..feed import DataBase
 
 
-class BlazeData(feed.DataBase):
+class BlazeData(DataBase):
     '''
     Support for `Blaze <blaze.pydata.org>`_ ``Data`` objects.
 

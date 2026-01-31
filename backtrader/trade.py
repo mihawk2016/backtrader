@@ -44,7 +44,7 @@ class TradeHistory(AutoOrderedDict):
         - ``price`` (``float``): current price of the Trade
         - ``value`` (``float``): current monetary value of the Trade
         - ``pnl`` (``float``): current profit and loss of the Trade
-        - ``pnlcomm`` (``float``): current profit and loss minus commission
+        - ``pnlcomm`` (``float``): current profit and loss minus commission  # 去除佣金后的盈利
 
       - ``event`` (``dict`` with '.' notation): Holds the event update
         - parameters

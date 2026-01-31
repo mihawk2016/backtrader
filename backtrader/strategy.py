@@ -31,13 +31,16 @@ import operator
 from .utils.py3 import (filter, keys, integer_types, iteritems, itervalues,
                         map, MAXINT, string_types, with_metaclass)
 
-import backtrader as bt
+# import backtrader as bt
 from .lineiterator import LineIterator, StrategyBase
 from .lineroot import LineSingle
 from .lineseries import LineSeriesStub
 from .metabase import ItemCollection, findowner
 from .trade import Trade
 from .utils import OrderedDict, AutoOrderedDict, AutoDictList
+from .order import Order
+# from backtrader.cerebro import Cerebro
+
 
 
 class MetaStrategy(StrategyBase.__class__):
@@ -69,16 +72,17 @@ class MetaStrategy(StrategyBase.__class__):
         _obj, args, kwargs = super(MetaStrategy, cls).donew(*args, **kwargs)
 
         # Find the owner and store it
-        _obj.env = _obj.cerebro = cerebro = findowner(_obj, bt.Cerebro)
+        from .cerebro import Cerebro
+        _obj.env = _obj.cerebro = cerebro = findowner(_obj, Cerebro)
         _obj._id = cerebro._next_stid()
 
         return _obj, args, kwargs
 
     def dopreinit(cls, _obj, *args, **kwargs):
-        _obj, args, kwargs = \
-            super(MetaStrategy, cls).dopreinit(_obj, *args, **kwargs)
+        from .sizers import FixedSize
+        _obj, args, kwargs = super(MetaStrategy, cls).dopreinit(_obj, *args, **kwargs)
         _obj.broker = _obj.env.broker
-        _obj._sizer = bt.sizers.FixedSize()
+        _obj._sizer = FixedSize()
         _obj._orders = list()
         _obj._orderspending = list()
         _obj._trades = collections.defaultdict(AutoDictList)
@@ -999,10 +1003,10 @@ class Strategy(with_metaclass(MetaStrategy, StrategyBase)):
         return None
 
     def buy_bracket(self, data=None, size=None, price=None, plimit=None,
-                    exectype=bt.Order.Limit, valid=None, tradeid=0,
+                    exectype=Order.Limit, valid=None, tradeid=0,
                     trailamount=None, trailpercent=None, oargs={},
-                    stopprice=None, stopexec=bt.Order.Stop, stopargs={},
-                    limitprice=None, limitexec=bt.Order.Limit, limitargs={},
+                    stopprice=None, stopexec=Order.Stop, stopargs={},
+                    limitprice=None, limitexec=Order.Limit, limitargs={},
                     **kwargs):
         '''
         Create a bracket order group (low side - buy order - high side). The
@@ -1174,11 +1178,11 @@ class Strategy(with_metaclass(MetaStrategy, StrategyBase)):
 
     def sell_bracket(self, data=None,
                      size=None, price=None, plimit=None,
-                     exectype=bt.Order.Limit, valid=None, tradeid=0,
+                     exectype=Order.Limit, valid=None, tradeid=0,
                      trailamount=None, trailpercent=None,
                      oargs={},
-                     stopprice=None, stopexec=bt.Order.Stop, stopargs={},
-                     limitprice=None, limitexec=bt.Order.Limit, limitargs={},
+                     stopprice=None, stopexec=Order.Stop, stopargs={},
+                     limitprice=None, limitexec=Order.Limit, limitargs={},
                      **kwargs):
         '''
         Create a bracket order group (low side - buy order - high side). The

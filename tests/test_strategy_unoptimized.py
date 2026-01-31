@@ -1,36 +1,13 @@
-#!/usr/bin/env python
-# -*- coding: utf-8; py-indent-offset:4 -*-
-###############################################################################
-#
-# Copyright (C) 2015-2023 Daniel Rodriguez
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
-
+import itertools
 import time
-try:
-    time_clock = time.process_time
-except:
-    time_clock = time.clock
 
-import testcommon
+from ..backtrader.utils.py3 import range
+from ..backtrader.utils import num2date
+from ..backtrader.strategy import Strategy
+from ..backtrader import indicators
+from ..backtrader.order import Order, BuyOrder
+from . import testcommon
 
-import backtrader as bt
-import backtrader.indicators as btind
 
 BUYCREATE = [
     '3641.42', '3798.46', '3874.61', '3860.00', '3843.08', '3648.33',
@@ -53,7 +30,7 @@ SELLEXEC = [
 ]
 
 
-class TestStrategy(bt.Strategy):
+class TestStrategy(Strategy):
     params = (
         ('period', 15),
         ('printdata', True),
@@ -64,17 +41,17 @@ class TestStrategy(bt.Strategy):
     def log(self, txt, dt=None, nodate=False):
         if not nodate:
             dt = dt or self.data.datetime[0]
-            dt = bt.num2date(dt)
+            dt = num2date(dt)
             print('%s, %s' % (dt.isoformat(), txt))
         else:
             print('---------- %s' % (txt))
 
     def notify_order(self, order):
-        if order.status in [bt.Order.Submitted, bt.Order.Accepted]:
+        if order.status in [Order.Submitted, Order.Accepted]:
             return  # Await further notifications
 
         if order.status == order.Completed:
-            if isinstance(order, bt.BuyOrder):
+            if isinstance(order, BuyOrder):
                 if self.p.printops:
                     txt = 'BUY, %.2f' % order.executed.price
                     self.log(txt, order.executed.dt)
@@ -99,8 +76,8 @@ class TestStrategy(bt.Strategy):
         # Flag to allow new orders in the system or not
         self.orderid = None
 
-        self.sma = btind.SMA(self.data, period=self.p.period)
-        self.cross = btind.CrossOver(self.data.close, self.sma, plot=True)
+        self.sma = indicators.SMA(self.data, period=self.p.period)
+        self.cross = indicators.CrossOver(self.data.close, self.sma, plot=True)
 
     def start(self):
         if not self.p.stocklike:
@@ -111,7 +88,7 @@ class TestStrategy(bt.Strategy):
             self.log('Starting portfolio value: %.2f' % self.broker.getvalue(),
                      nodate=True)
 
-        self.tstart = time_clock()
+        self.tstart = time.process_time()
 
         self.buycreate = list()
         self.sellcreate = list()
@@ -119,7 +96,7 @@ class TestStrategy(bt.Strategy):
         self.sellexec = list()
 
     def stop(self):
-        tused = time_clock() - self.tstart
+        tused = time.process_time() - self.tstart
         if self.p.printdata:
             self.log('Time used: %s' % str(tused))
             self.log('Final portfolio value: %.2f' % self.broker.getvalue())

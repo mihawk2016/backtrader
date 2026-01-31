@@ -21,13 +21,13 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
-from backtrader.utils.py3 import filter, string_types, integer_types
+from ..utils.py3 import filter, string_types, integer_types
 
-from backtrader import date2num
-import backtrader.feed as feed
+from ..dataseries import date2num
+from ..feed import DataBase
 
 
-class PandasDirectData(feed.DataBase):
+class PandasDirectData(DataBase):
     '''
     Uses a Pandas DataFrame as the feed source, iterating directly over the
     tuples returned by "itertuples".
@@ -104,7 +104,7 @@ class PandasDirectData(feed.DataBase):
         return True
 
 
-class PandasData(feed.DataBase):
+class PandasData(DataBase):
     '''
     Uses a Pandas DataFrame as the feed source, using indices into column
     names (which can be "numeric")

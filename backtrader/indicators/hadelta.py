@@ -24,12 +24,13 @@ from __future__ import (absolute_import, division, print_function,
 
 import backtrader as bt
 from . import MovAv
+from ..indicator import Indicator
 
 
 __all__ = ['haDelta', 'haD']
 
 
-class haDelta(bt.Indicator):
+class haDelta(Indicator):
     '''Heikin Ashi Delta. Defined by Dan Valcu in his book "Heikin-Ashi: How to
     Trade Without Candlestick Patterns ".
 

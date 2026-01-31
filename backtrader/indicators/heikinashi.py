@@ -23,13 +23,14 @@ from __future__ import (absolute_import, division, print_function,
 
 
 import backtrader as bt
-from backtrader.utils.py3 import range
+from ..utils.py3 import range
+from ..indicator import Indicator
 
 
 __all__ = ['HeikinAshi']
 
 
-class HeikinAshi(bt.Indicator):
+class HeikinAshi(Indicator):
     '''
     Heikin Ashi candlesticks in the forms of lines
 

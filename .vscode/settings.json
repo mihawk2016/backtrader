@@ -1,0 +1,16 @@
+{
+    "python.testing.pytestArgs": [
+        "tests",
+        "-s",
+        // "--html=./tests/report/html/result.html"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "cSpell.words": [
+        "adjclose",
+        "adjustclose",
+        "openinterest",
+        "quantopia"
+    ],
+    "python.analysis.autoImportCompletions": true,
+}

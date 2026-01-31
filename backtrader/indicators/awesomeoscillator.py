@@ -23,12 +23,13 @@ from __future__ import (absolute_import, division, print_function,
 
 import backtrader as bt
 from . import MovAv
+from ..indicator import Indicator
 
 
 __all__ = ['AwesomeOscillator', 'AwesomeOsc', 'AO']
 
 
-class AwesomeOscillator(bt.Indicator):
+class AwesomeOscillator(Indicator):
     '''
     Awesome Oscillator (AO) is a momentum indicator reflecting the precise
     changes in the market driving force which helps to identify the trend’s

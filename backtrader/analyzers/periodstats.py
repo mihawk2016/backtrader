@@ -23,15 +23,18 @@ from __future__ import (absolute_import, division, print_function,
 
 
 import backtrader as bt
-from backtrader.utils.py3 import itervalues
-from backtrader.mathsupport import average, standarddev
+from ..utils.py3 import itervalues
+from ..mathsupport import average, standarddev
 from . import TimeReturn
 
+from ..dataseries import TimeFrame
+
+from ..analyzer import Analyzer
 
 __all__ = ['PeriodStats']
 
 
-class PeriodStats(bt.Analyzer):
+class PeriodStats(Analyzer):
     '''Calculates basic statistics for given timeframe
 
     Params:
@@ -76,7 +79,7 @@ class PeriodStats(bt.Analyzer):
     '''
 
     params = (
-        ('timeframe', bt.TimeFrame.Years),
+        ('timeframe', TimeFrame.Years),
         ('compression', 1),
         ('zeroispos', False),
         ('fund', None),

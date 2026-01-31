@@ -23,6 +23,8 @@ from __future__ import (absolute_import, division, print_function,
 
 import backtrader as bt
 
+
+from ... import studies
 from .import fractal as fractal
 for name in fractal.__all__:
-    setattr(bt.studies, name, getattr(fractal, name))
+    setattr(studies, name, getattr(fractal, name))

@@ -24,9 +24,11 @@ from __future__ import (absolute_import, division, print_function,
 import datetime
 
 import backtrader as bt
+from ..utils.py3 import with_metaclass
+from ..metabase import MetaParams
 
 
-class DaySplitter_Close(bt.with_metaclass(bt.MetaParams, object)):
+class DaySplitter_Close(with_metaclass(MetaParams, object)):
     '''
     Splits a daily bar in two parts simulating 2 ticks which will be used to
     replay the data:

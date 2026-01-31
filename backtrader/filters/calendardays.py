@@ -23,8 +23,8 @@ from __future__ import (absolute_import, division, print_function,
 
 from datetime import date, datetime, timedelta
 
-from backtrader import TimeFrame
-from backtrader.utils.py3 import with_metaclass
+from ..dataseries import TimeFrame
+from ..utils.py3 import with_metaclass
 from .. import metabase
 
 

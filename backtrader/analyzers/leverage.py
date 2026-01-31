@@ -23,8 +23,10 @@ from __future__ import (absolute_import, division, print_function,
 
 import backtrader as bt
 
+from ..analyzer import Analyzer
 
-class GrossLeverage(bt.Analyzer):
+
+class GrossLeverage(Analyzer):
     '''This analyzer calculates the Gross Leverage of the current strategy
     on a timeframe basis
 

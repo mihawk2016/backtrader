@@ -1,38 +1,11 @@
-#!/usr/bin/env python
-# -*- coding: utf-8; py-indent-offset:4 -*-
-###############################################################################
-#
-# Copyright (C) 2015-2023 Daniel Rodriguez
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-###############################################################################
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
-
 import itertools
 import time
-try:
-    time_clock = time.process_time
-except:
-    time_clock = time.clock
 
-import testcommon
-
-from backtrader.utils.py3 import range
-import backtrader as bt
-import backtrader.indicators as btind
+from ..backtrader.utils.py3 import range
+from ..backtrader.utils import num2date
+from ..backtrader.strategy import Strategy
+from ..backtrader import indicators
+from . import testcommon
 
 CHKVALUES = [
     '14525.80', '14525.80', '15408.20', '15408.20', '14763.90',
@@ -60,7 +33,7 @@ _chkvalues = []
 _chkcash = []
 
 
-class TestStrategy(bt.Strategy):
+class TestStrategy(Strategy):
     params = (
         ('period', 15),
         ('printdata', True),
@@ -69,26 +42,26 @@ class TestStrategy(bt.Strategy):
 
     def log(self, txt, dt=None):
         dt = dt or self.data.datetime[0]
-        dt = bt.num2date(dt)
+        dt = num2date(dt)
         print('%s, %s' % (dt.isoformat(), txt))
 
     def __init__(self):
         # Flag to allow new orders in the system or not
         self.orderid = None
 
-        self.sma = btind.SMA(self.data, period=self.p.period)
-        self.cross = btind.CrossOver(self.data.close, self.sma, plot=True)
+        self.sma = indicators.SMA(self.data, period=self.p.period)
+        self.cross = indicators.CrossOver(self.data.close, self.sma, plot=True)
 
     def start(self):
         self.broker.setcommission(commission=2.0, mult=10.0, margin=1000.0)
-        self.tstart = time_clock()
+        self.tstart = time.process_time()
         self.buy_create_idx = itertools.count()
 
     def stop(self):
         global _chkvalues
         global _chkcash
 
-        tused = time_clock() - self.tstart
+        tused = time.process_time() - self.tstart
         if self.p.printdata:
             self.log(('Time used: %s  - Period % d - '
                       'Start value: %.2f - End value: %.2f') %
